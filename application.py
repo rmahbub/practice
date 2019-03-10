@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-import api_pull as ap
+import api_load as ap
 import plot
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def index():
         return render_template('index.html')
     else:
         #request was a post
-        app.vars['ticker'] = request.form['ticker']
+        app.vars['ticker'] = str(request.form['ticker'])
         app.vars['results'] = ap.get_data(app.vars['ticker'])
         print("length of df: ",len(app.vars['results']))
         if len(app.vars['results']) == 0:
@@ -31,3 +31,4 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+ 
